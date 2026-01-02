@@ -188,6 +188,18 @@ sudo journalctl -u rathole-client -f
 
 ## Adding a New Service
 
+### Option 1: Use RCM (Recommended)
+
+**[RCM (Rathole Caddy Manager)](https://github.com/AhmedAburady/rcm)** automates the entire process. Just edit your Caddyfile and run one command:
+
+```bash
+rcm sync
+```
+
+RCM parses your Caddyfile, generates both `server.toml` and `client.toml`, deploys them via SSH, and restarts all services automatically.
+
+### Option 2: Manual
+
 1. **Server** (`server/server.toml`):
    ```toml
    [server.services.myapp]
