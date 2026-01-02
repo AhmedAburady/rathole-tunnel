@@ -1,0 +1,19 @@
+[server]
+bind_addr = "0.0.0.0:2333"
+default_token = "YOUR_TOKEN_HERE"
+
+[server.transport]
+type = "noise"
+
+[server.transport.noise]
+local_private_key = "YOUR_PRIVATE_KEY_HERE"
+
+# Example services - service names must match client config exactly
+[server.services.webapp]
+bind_addr = "127.0.0.1:5000"
+
+[server.services.homeassistant]
+bind_addr = "127.0.0.1:5001"
+
+[server.services.jellyfin]
+bind_addr = "127.0.0.1:5002"

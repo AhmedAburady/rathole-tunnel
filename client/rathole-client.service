@@ -1,0 +1,13 @@
+[Unit]
+Description=Rathole Client
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/rathole --client /etc/rathole/client.toml
+Restart=always
+RestartSec=5s
+
+[Install]
+WantedBy=multi-user.target

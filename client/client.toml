@@ -1,0 +1,19 @@
+[client]
+remote_addr = "YOUR_VPS_IP:2333"
+default_token = "YOUR_TOKEN_HERE"
+
+[client.transport]
+type = "noise"
+
+[client.transport.noise]
+remote_public_key = "YOUR_SERVER_PUBLIC_KEY_HERE"
+
+# Example services - service names must match server config exactly
+[client.services.webapp]
+local_addr = "192.168.1.100:3000"
+
+[client.services.homeassistant]
+local_addr = "192.168.1.50:8123"
+
+[client.services.jellyfin]
+local_addr = "192.168.1.60:8096"

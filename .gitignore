@@ -1,0 +1,23 @@
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Certificates and secrets
+certs/
+caddy/certs/
+*.pem
+*.key
+*.crt
+.secrets
+.env
+
+# Local config overrides (create these from the example files)
+# server/server.local.toml
+# client/client.local.toml
+# caddy/Caddyfile.local
+
+# OS
+.DS_Store
+Thumbs.db

@@ -1,0 +1,61 @@
+# =============================================================================
+# Example Caddyfile - Reverse Proxy Configuration
+# =============================================================================
+# This file defines how Caddy routes incoming requests to Rathole tunnel ports.
+# Each domain maps to a corresponding service defined in server.toml/client.toml.
+#
+# TLS Options:
+# - Let's Encrypt (automatic): Just specify the domain, Caddy handles certs
+# - Cloudflare Origin Certs: Use `tls /certs/cert.pem /certs/key.pem`
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# Option 1: Let's Encrypt (automatic certificates)
+# Use when: DNS points directly to VPS (Cloudflare "DNS only" / grey cloud)
+# -----------------------------------------------------------------------------
+app.example.com {
+    reverse_proxy 127.0.0.1:5000
+}
+
+# -----------------------------------------------------------------------------
+# Option 2: Cloudflare Origin Certificate
+# Use when: Traffic proxied through Cloudflare (orange cloud)
+# -----------------------------------------------------------------------------
+homeassistant.example.com {
+    tls /certs/example-cert.pem /certs/example-key.pem
+    reverse_proxy 127.0.0.1:5001 {
+        header_up Host {host}
+        header_up X-Real-IP {remote_host}
+        header_up X-Forwarded-For {remote_host}
+        header_up X-Forwarded-Proto {scheme}
+    }
+}
+
+# -----------------------------------------------------------------------------
+# Option 3: Backend service uses HTTPS (self-signed)
+# Use when: Your local service requires HTTPS connections
+# -----------------------------------------------------------------------------
+jellyfin.example.com {
+    tls /certs/example-cert.pem /certs/example-key.pem
+    reverse_proxy https://127.0.0.1:5002 {
+        transport http {
+            tls_insecure_skip_verify
+        }
+        header_up Host {host}
+        header_up X-Real-IP {remote_host}
+        header_up X-Forwarded-For {remote_host}
+        header_up X-Forwarded-Proto {scheme}
+    }
+}
+
+# -----------------------------------------------------------------------------
+# Option 4: Multiple domains for same service (with www redirect)
+# -----------------------------------------------------------------------------
+www.example.com {
+    redir https://example.com{uri} permanent
+}
+
+example.com {
+    tls /certs/example-cert.pem /certs/example-key.pem
+    reverse_proxy 127.0.0.1:5000
+}
