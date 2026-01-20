@@ -43,6 +43,17 @@ flowchart TB
     RATHOLE_SERVER <--->|"Encrypted Tunnel :2333<br/>Noise Protocol"| RATHOLE_CLIENT
 ```
 
+## Management Apps
+
+Automate config management with these CLI tools:
+
+| App | Description | Install |
+|-----|-------------|---------|
+| **[RCM-Go](https://github.com/AhmedAburady/rcm-go)** (Recommended) | Single binary with interactive TUI | `go install github.com/AhmedAburady/rcm-go/cmd/rcm@latest` |
+| [RCM (Python)](https://github.com/AhmedAburady/rcm) | Original Python version | `uv tool install "rcm @ git+ssh://git@github.com/AhmedAburady/rcm.git"` |
+
+Both apps use your **Caddyfile as the source of truth** - edit one file and run `rcm sync` to deploy configs to both machines automatically.
+
 ## Project Structure
 
 ```mermaid
@@ -190,7 +201,7 @@ sudo journalctl -u rathole-client -f
 
 ### Option 1: Use RCM (Recommended)
 
-**[RCM (Rathole Caddy Manager)](https://github.com/AhmedAburady/rcm)** automates the entire process. Just edit your Caddyfile and run one command:
+Use **[RCM-Go](https://github.com/AhmedAburady/rcm-go)** or **[RCM (Python)](https://github.com/AhmedAburady/rcm)** to automate the entire process. Just edit your Caddyfile and run one command:
 
 ```bash
 rcm sync
