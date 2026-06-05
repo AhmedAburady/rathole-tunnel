@@ -8,5 +8,20 @@ ExecStart=/usr/local/bin/rathole --server /etc/rathole/server.toml
 Restart=on-failure
 RestartSec=5s
 
+# --- Hardening ---
+DynamicUser=yes
+NoNewPrivileges=yes
+ProtectSystem=strict
+PrivateTmp=yes
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectControlGroups=yes
+RestrictAddressFamilies=AF_INET AF_INET6
+RestrictNamespaces=yes
+LockPersonality=yes
+CapabilityBoundingSet=
+SystemCallFilter=@system-service
+SystemCallErrorNumber=EPERM
+
 [Install]
 WantedBy=multi-user.target
